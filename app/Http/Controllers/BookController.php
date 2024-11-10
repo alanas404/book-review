@@ -13,8 +13,8 @@ class BookController extends Controller
     public function index(Request $request)
     {
         $title = $request->input('title');
-        $books = Book::when($title,function($query,$title){
-            return $query->title($title);
+        $books = Book::when($title,function($query) use($title){
+            $query->title($title);
         })->get();
 
         return view('books.index',['books'=>$books]);
