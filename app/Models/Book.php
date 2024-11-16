@@ -76,4 +76,16 @@ class Book extends Model
     }
 
 
+    protected static function booted(): void
+    {
+        static::updated(function (Book $book) {
+            cache()->forget('book:'.$book->id);
+        });
+
+        static::deleted(function (Review $review) {
+            cache()->forget('book:'.$book->id);
+        });
+    }
+
+
 }
