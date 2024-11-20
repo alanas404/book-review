@@ -22,5 +22,8 @@ class Review extends Model
         static::deleted(function (Review $review) {
             cache()->forget('book:'.$review->book->id);
         });
+        static::created(function (Review $review) {
+            cache()->forget('book:'.$review->book->id);
+        });
     }
 }
